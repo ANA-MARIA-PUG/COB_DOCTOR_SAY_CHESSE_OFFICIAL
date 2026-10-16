@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Cobrescu-Sucitu Alexandra Ioana - Stomatologie</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="static/alex.png" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              300: '#f3e5ab',
+              400: '#e6ca65',
+              500: '#d4af37',
+              600: '#aa8c2c',
+              700: '#806921',
+            },
+            darkbg: '#0a0a0a',
+            cardbg: '#121212',
+            accentbg: '#1a1a1a',
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #e5e5e5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fff2cc 0%, #d4af37 50%, #aa8c2c 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gold-border-glow {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.05);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .gold-border-glow:hover {
+      border-color: rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .sidebar-btn-active {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 100%);
+      border-left: 3px solid #d4af37;
+      color: #d4af37;
+    }
+
+    /* Animații suave pentru secțiuni */
+    .fade-in-section {
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-gold-500 selection:text-black relative">
+
+  <!-- Sidebar Navigatie -->
+  <aside class="w-full lg:w-80 bg-black/95 backdrop-blur-md border-r border-gold-500/20 lg:fixed lg:h-screen flex flex-col justify-between z-40">
+    <div>
+      <!-- Profile Header -->
+      <div class="p-6 text-center border-b border-gold-500/10">
+        <div class="relative w-28 h-28 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-gold-600 via-gold-400 to-amber-200 shadow-xl shadow-gold-500/10 cursor-pointer" onclick="openLightbox('static/alex.png')">
+          <img src="static/alex.png" alt="Dr. Alexandra Ioana Cobrescu-Sucitu" class="w-full h-full object-cover rounded-full border-2 border-black" />
+        </div>
+        <h2 class="font-cinzel text-lg font-bold text-gold-400 tracking-wide">Dr. Cobrescu-Sucitu</h2>
+        <p class="font-cinzel text-xs text-gold-500/80 tracking-widest mt-0.5">ALEXANDRA IOANA</p>
+        <div class="mt-3 inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/30 rounded-full text-[10px] text-gold-300 font-semibold tracking-wider uppercase">
+          COB. DOCTOR SAY CHEESE
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-4 space-y-1.5 text-sm">
+        <button onclick="navigate('prezentare_medic', this)" class="nav-btn sidebar-btn-active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="user-check" class="w-4 h-4 text-gold-500"></i>
+          <span>Despre Medic</span>
+        </button>
+
+        <button onclick="navigate('prezentare_cabinetului', this)" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-zinc-400 transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="building-2" class="w-4 h-4 text-gold-500"></i>
+          <span>Cabinetul</span>
+        </button>
+
+        <button onclick="navigate('tarife', this)" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-zinc-400 transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="receipt" class="w-4 h-4 text-gold-500"></i>
+          <span>Tarife Servicii</span>
+        </button>
+
+        <button onclick="navigate('calculator_tarife', this)" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-zinc-400 transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="calculator" class="w-4 h-4 text-gold-500"></i>
+          <span>Calculator Estimativ</span>
+        </button>
+
+        <button onclick="navigate('review_section', this)" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-zinc-400 transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="star" class="w-4 h-4 text-gold-500"></i>
+          <span>Recenzii Pacienți</span>
+        </button>
+
+        <button onclick="navigate('programare_client', this)" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-zinc-400 transition-all hover:bg-gold-500/10 hover:text-gold-400">
+          <i data-lucide="calendar-plus" class="w-4 h-4 text-gold-500"></i>
+          <span>Programare Online</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Admin Footer Button -->
+    <div class="p-4 border-t border-gold-500/10">
+      <button onclick="openAdminModal()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 bg-zinc-900/80 border border-gold-500/20 rounded-xl text-xs text-zinc-400 hover:text-gold-400 hover:border-gold-500/40 transition-all">
+        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        <span>Panou Admin</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Continut Principal -->
+  <main class="flex-1 lg:ml-80 p-4 md:p-8 lg:p-12 max-w-6xl mx-auto">
+
+    <!-- SECTIUNEA 1: DESPRE MEDIC -->
+    <section id="prezentare_medic" class="content-section fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4 flex justify-between items-end">
+        <div>
+          <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Dr. Alexandra-Ioana Cobrescu-Sucitu</h1>
+          <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Medic Stomatolog Specialist</p>
+        </div>
+      </div>
+
+      <!-- Card Statistici Rapide -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-cardbg p-4 rounded-xl border border-gold-500/20 text-center">
+          <span class="font-cinzel text-2xl font-bold text-gold-400 block">10+</span>
+          <span class="text-xs text-zinc-400">Ani Experiență</span>
+        </div>
+        <div class="bg-cardbg p-4 rounded-xl border border-gold-500/20 text-center">
+          <span class="font-cinzel text-2xl font-bold text-gold-400 block">100%</span>
+          <span class="text-xs text-zinc-400">Dedicație & Confort</span>
+        </div>
+        <div class="bg-cardbg p-4 rounded-xl border border-gold-500/20 text-center">
+          <span class="font-cinzel text-2xl font-bold text-gold-400 block">Modern</span>
+          <span class="text-xs text-zinc-400">Echipament Premium</span>
+        </div>
+        <div class="bg-cardbg p-4 rounded-xl border border-gold-500/20 text-center">
+          <span class="font-cinzel text-2xl font-bold text-gold-400 block">Timișoara</span>
+          <span class="text-xs text-zinc-400">Absolvent UMF</span>
+        </div>
+      </div>
+
+      <div class="bg-cardbg rounded-2xl p-6 md:p-8 gold-border-glow transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative group cursor-pointer" onclick="openLightbox('static/alex3.png')">
+              <div class="absolute -inset-1 bg-gradient-to-r from-gold-500 to-amber-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+              <img src="static/alex3.png" alt="Dr. Alexandra Cobrescu" class="relative rounded-xl border border-gold-500/30 w-full max-w-xs object-cover hover:scale-[1.02] transition duration-300" />
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
+                <span class="text-zinc-500 text-xs block mb-1">Contact direct</span>
+                <a href="tel:+40724248842" class="font-semibold text-gold-400 hover:underline flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +40 724 248 842</a>
+              </div>
+              <div class="bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
+                <span class="text-zinc-500 text-xs block mb-1">Studii și Formare</span>
+                <span class="font-semibold text-zinc-200 flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-gold-500"></i> UMF "Victor Babeș"</span>
+              </div>
+            </div>
+
+            <p class="text-zinc-300 text-sm md:text-base leading-relaxed">
+              Dr. Alexandra Ioana Cobrescu-Sucitu este un medic stomatolog pasionat și dedicat, specializat în oferirea unor tratamente moderne, nedureroase și de cea mai înaltă calitate. Cu o abordare caldă și profesionistă, fiecare pacient se bucură de atenție personalizată și rezultate estetic excelente.
+            </p>
+
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="https://www.facebook.com/alexandra.cobrescu.3" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-xl text-sm font-medium transition-all">
+                <i data-lucide="facebook" class="w-4 h-4"></i> Profil Facebook Oficial
+              </a>
+              <button onclick="navigate('programare_client')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gold-500 hover:bg-gold-600 text-black font-semibold rounded-xl text-sm transition-all shadow-lg shadow-gold-500/10">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Solicită O Programare
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIUNEA 2: CABINETUL -->
+    <section id="prezentare_cabinetului" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4">
+        <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Cabinet Stomatologic</h1>
+        <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">COB. DOCTOR SAY CHEESE</p>
+      </div>
+
+      <div class="bg-cardbg rounded-2xl p-6 md:p-8 gold-border-glow space-y-8">
+        <p class="text-zinc-300 text-sm md:text-base leading-relaxed">
+          Cabinetul nostru oferă servicii stomatologice complete într-un mediu primitor, igienizat la cele mai înalte standarde internaționale. Dotat cu tehnologie modernă de diagnostic și tratament, ne asigurăm că fiecare vizită este o experiență confortabilă și fără stres.
+        </p>
+
+        <!-- Galerie imagini cabinet cu opțiune de zoom -->
+        <div>
+          <h3 class="font-cinzel text-gold-400 font-bold text-sm mb-3">Galerie Foto Cabinet (Click pentru mărire)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="overflow-hidden rounded-xl border border-gold-500/20 group cursor-pointer" onclick="openLightbox('static/cabinet1.jpg')">
+              <img src="static/cabinet1.jpg" alt="Cabinet Stomatologic" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" />
+            </div>
+            <div class="overflow-hidden rounded-xl border border-gold-500/20 group cursor-pointer" onclick="openLightbox('static/cabinet2.jpg')">
+              <img src="static/cabinet2.jpg" alt="Sala de Așteptare" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" />
+            </div>
+            <div class="overflow-hidden rounded-xl border border-gold-500/20 group cursor-pointer" onclick="openLightbox('static/cabinet3.jpg')">
+              <img src="static/cabinet3.jpg" alt="Echipament Dentar" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Informatie Locatie si Program -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-4">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-zinc-900 p-5 rounded-xl border border-gold-500/20 space-y-3">
+              <h3 class="font-cinzel text-gold-400 font-bold flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Adresă & Locație</h3>
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                Bulevardul Dimitrie Cantemir, Nr. 20, Bl. 8, Sc. 1, Ap. 4<br>
+                <span class="text-gold-500 font-semibold">Interfon: 104C</span><br>
+                București, România
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 p-5 rounded-xl border border-gold-500/20 space-y-2">
+              <h3 class="font-cinzel text-gold-400 font-bold flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Program de Lucru</h3>
+              <p class="text-xs text-zinc-300"><strong>Luni - Vineri:</strong> 09:00 - 20:00</p>
+              <p class="text-xs text-zinc-300"><strong>Sâmbătă:</strong> Doar Urgențe</p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 rounded-xl overflow-hidden border border-gold-500/20 h-64 shadow-xl">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.5244583794356!2d26.10134447665798!3d44.42239400236041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff16e788c039%3A0xc3995f5c35b8801d!2sBulevardul%20Dimitrie%20Cantemir%2020%2C%20Bucure%C8%99ti%20040245!5e0!3m2!1sro!2sro!4v1712499110000!5m2!1sro!2sro" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIUNEA 3: TARIFE -->
+    <section id="tarife" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4">
+        <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Tarife Servicii</h1>
+        <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Lista orientativă de prețuri</p>
+      </div>
+
+      <div class="bg-cardbg rounded-2xl p-6 gold-border-glow">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-gold-500/30 text-gold-400 font-cinzel">
+                <th class="py-3.5 px-4">Serviciu Stomatologic</th>
+                <th class="py-3.5 px-4 text-right">Preț (RON)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800/80 text-zinc-300">
+              <tr class="hover:bg-zinc-900/60 transition"><td class="py-4 px-4 font-medium">Consultație Stomatologică & Plan Tratament</td><td class="py-4 px-4 text-right font-bold text-gold-400">150 RON</td></tr>
+              <tr class="hover:bg-zinc-900/60 transition"><td class="py-4 px-4 font-medium">Detartraj Ultrasunete + Periaj Profesional + Airflow</td><td class="py-4 px-4 text-right font-bold text-gold-400">250 RON</td></tr>
+              <tr class="hover:bg-zinc-900/60 transition"><td class="py-4 px-4 font-medium">Obturație Compozit (Plombă Fotopolimerizabilă)</td><td class="py-4 px-4 text-right font-bold text-gold-400">300 RON</td></tr>
+              <tr class="hover:bg-zinc-900/60 transition"><td class="py-4 px-4 font-medium">Tratament Endodontic (Canal)</td><td class="py-4 px-4 text-right font-bold text-gold-400">400 RON</td></tr>
+              <tr class="hover:bg-zinc-900/60 transition"><td class="py-4 px-4 font-medium">Extracție Dentară Simplă</td><td class="py-4 px-4 text-right font-bold text-gold-400">200 RON</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIUNEA 4: CALCULATOR TARIFE -->
+    <section id="calculator_tarife" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4">
+        <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Calculator Tarife</h1>
+        <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Calculează un cost estimativ pentru tratamentul tău</p>
+      </div>
+
+      <div class="bg-cardbg rounded-2xl p-6 md:p-8 gold-border-glow space-y-6">
+        <div class="space-y-3">
+          <label class="flex items-center justify-between p-4 bg-zinc-900/80 rounded-xl border border-zinc-800 cursor-pointer hover:border-gold-500/40 transition">
+            <span class="text-sm font-medium">Consultație & Diagnostic</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-gold-400 font-semibold">150 RON</span>
+              <input type="checkbox" value="150" onchange="calculeazaTotal()" class="calc-check w-4 h-4 accent-gold-500 rounded" />
+            </div>
+          </label>
+
+          <label class="flex items-center justify-between p-4 bg-zinc-900/80 rounded-xl border border-zinc-800 cursor-pointer hover:border-gold-500/40 transition">
+            <span class="text-sm font-medium">Detartraj & Igienizare Completa</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-gold-400 font-semibold">250 RON</span>
+              <input type="checkbox" value="250" onchange="calculeazaTotal()" class="calc-check w-4 h-4 accent-gold-500 rounded" />
+            </div>
+          </label>
+
+          <label class="flex items-center justify-between p-4 bg-zinc-900/80 rounded-xl border border-zinc-800 cursor-pointer hover:border-gold-500/40 transition">
+            <span class="text-sm font-medium">Plombă Compozit (Obturație)</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-gold-400 font-semibold">300 RON</span>
+              <input type="checkbox" value="300" onchange="calculeazaTotal()" class="calc-check w-4 h-4 accent-gold-500 rounded" />
+            </div>
+          </label>
+        </div>
+
+        <div class="p-6 bg-black rounded-xl border border-gold-500/30 flex items-center justify-between shadow-inner">
+          <span class="font-cinzel text-sm text-zinc-400">Total Estimativ:</span>
+          <span id="total_suma" class="font-cinzel text-2xl font-bold text-gold-400">0 RON</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIUNEA 5: RECENZII -->
+    <section id="review_section" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4">
+        <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Recenzii Pacienți</h1>
+        <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Părerile celor care au trecut pragul cabinetului</p>
+      </div>
+
+      <!-- Formular Adaugare Review -->
+      <div class="bg-cardbg rounded-2xl p-6 gold-border-glow mb-8 space-y-4">
+        <h3 class="font-cinzel text-gold-400 font-bold text-sm">Adaugă o recenzie</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" id="rev_nume" placeholder="Numele tău" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold-500 text-white" />
+          <select id="rev_rating" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold-500 text-gold-400">
+            <option value="⭐⭐⭐⭐⭐">5 Stele (Excelent)</option>
+            <option value="⭐⭐⭐⭐">4 Stele (Foarte Bine)</option>
+            <option value="⭐⭐⭐">3 Stele (Satisfăcător)</option>
+          </select>
+        </div>
+        <textarea id="rev_text" rows="3" placeholder="Scrie opinia ta despre experiența în cabinet..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-sm focus:outline-none focus:border-gold-500 text-white"></textarea>
+        <button onclick="adaugaReview()" class="px-6 py-2.5 bg-gold-500 hover:bg-gold-600 text-black font-semibold text-sm rounded-xl transition-all shadow-md">Publică Recenzia</button>
+      </div>
+
+      <div id="lista_reviews" class="space-y-4"></div>
+    </section>
+
+    <!-- SECTIUNEA 6: PROGRAMARE -->
+    <section id="programare_client" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4">
+        <h1 class="font-cinzel text-2xl md:text-3xl font-bold gold-gradient-text">Programare Rapidă</h1>
+        <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Solicită o programare direct pe WhatsApp</p>
+      </div>
+
+      <div class="bg-cardbg rounded-2xl p-6 md:p-8 gold-border-glow max-w-xl mx-auto space-y-5">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Nume și Prenume</label>
+          <input type="text" id="c_nume" placeholder="ex. Popescu Ion" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 text-white" />
+        </div>
+
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Interval Orare Preferat</label>
+          <select id="c_ora" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 text-white">
+            <option value="" disabled selected>Alege intervalul</option>
+            <option value="Dimineața (09:00 - 12:00)">Dimineața (09:00 - 12:00)</option>
+            <option value="După-amiaza (14:00 - 18:00)">După-amiaza (14:00 - 18:00)</option>
+          </select>
+        </div>
+
+        <button onclick="trimiteWhatsApp()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Trimite Solicitarea pe WhatsApp
+        </button>
+
+        <div class="text-center pt-4 border-t border-zinc-800">
+          <p class="text-xs text-zinc-500 mb-1">Pentru Urgențe Dentare Directe:</p>
+          <a href="tel:+40724248842" class="text-gold-400 font-bold hover:underline text-sm">+40 724 248 842</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIUNEA 7: ADMIN PANEL -->
+    <section id="admin_panel" class="content-section hidden fade-in-section">
+      <div class="mb-8 border-b border-gold-500/20 pb-4 flex justify-between items-center">
+        <div>
+          <h1 class="font-cinzel text-2xl font-bold gold-gradient-text">Registru Admin</h1>
+          <p class="text-xs text-zinc-400 uppercase tracking-widest mt-1">Panou de Gestionare Cabinet</p>
+        </div>
+        <button onclick="navigate('prezentare_medic')" class="px-3.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs text-zinc-300 rounded-xl transition">Ieșire Admin</button>
+      </div>
+
+      <!-- Tabs Admin -->
+      <div class="flex gap-2 mb-6 border-b border-zinc-800 pb-3">
+        <button onclick="showAdminTab('tab-programari')" class="px-4 py-2 bg-gold-500/20 border border-gold-500/40 text-gold-400 rounded-xl text-xs font-semibold">Programări</button>
+        <button onclick="showAdminTab('tab-dosare')" class="px-4 py-2 bg-zinc-900 text-zinc-400 hover:text-white rounded-xl text-xs font-semibold">Dosare Pacienți</button>
+        <button onclick="showAdminTab('tab-moderare')" class="px-4 py-2 bg-zinc-900 text-zinc-400 hover:text-white rounded-xl text-xs font-semibold">Moderare Recenzii</button>
+      </div>
+
+      <!-- Tab Programari -->
+      <div id="tab-programari" class="admin-tab space-y-6">
+        <div class="bg-cardbg p-6 rounded-2xl border border-zinc-800 space-y-4">
+          <h3 class="font-cinzel text-sm text-gold-400 font-bold">Adaugă Programare Nouă</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <input type="text" id="adm_p_nume" placeholder="Nume Pacient" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white" />
+            <input type="time" id="adm_p_ora" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white" />
+            <button onclick="salveazaProgramare()" class="bg-gold-500 hover:bg-gold-600 text-black font-semibold rounded-xl text-sm py-2">Adaugă</button>
+          </div>
+        </div>
+
+        <div class="bg-cardbg p-6 rounded-2xl border border-zinc-800">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-cinzel text-sm text-gold-400 font-bold">Lista Programări</h3>
+            <button onclick="exportaProgramariCSV()" class="px-3 py-1.5 bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs">Export CSV</button>
+          </div>
+          <table class="w-full text-left text-sm">
+            <thead class="border-b border-zinc-800 text-zinc-400">
+              <tr>
+                <th class="py-2">Ora</th>
+                <th class="py-2">Pacient</th>
+                <th class="py-2 text-right">Acțiuni</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-programari" class="divide-y divide-zinc-800/50"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Dosare Pacienti -->
+      <div id="tab-dosare" class="admin-tab hidden space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-emerald-950/30 border border-emerald-500/30 p-4 rounded-xl">
+            <span class="text-xs text-emerald-400 block">Venit Luna Curentă</span>
+            <span id="venit_lunar" class="text-xl font-bold text-emerald-300">0 RON</span>
+          </div>
+          <div class="bg-rose-950/30 border border-rose-500/30 p-4 rounded-xl">
+            <span class="text-xs text-rose-400 block">Total Datorii / Restanțe</span>
+            <span id="total_restante" class="text-xl font-bold text-rose-300">0 RON</span>
+          </div>
+        </div>
+
+        <div class="bg-cardbg p-6 rounded-2xl border border-zinc-800 space-y-3">
+          <h3 class="font-cinzel text-sm text-gold-400 font-bold">Adaugă / Editează Dosar Pacient</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input type="text" id="p_nume" placeholder="Nume Pacient" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white" />
+            <input type="file" id="p_radiografie" accept="image/*" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-xs text-zinc-400" />
+            <input type="number" id="p_pret_total" placeholder="Cost Total (RON)" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white" />
+            <input type="number" id="p_achitat" placeholder="Suma Achitată (RON)" class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white" />
+          </div>
+          <textarea id="p_tratament" rows="3" placeholder="Detalii tratament efectuat..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-sm text-white"></textarea>
+          <button onclick="adaugaPacient()" class="w-full py-2.5 bg-gold-500 hover:bg-gold-600 text-black font-semibold text-sm rounded-xl">Salvează Dosar</button>
+        </div>
+
+        <div id="lista_pacienti_dosar" class="space-y-3"></div>
+      </div>
+
+      <!-- Tab Moderare Recenzii -->
+      <div id="tab-moderare" class="admin-tab hidden bg-cardbg p-6 rounded-2xl border border-zinc-800">
+        <h3 class="font-cinzel text-sm text-gold-400 font-bold mb-4">Moderare Recenzii</h3>
+        <div id="admin_reviews_list" class="space-y-3"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Widget Plutitor Contact Rapid -->
+  <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+    <a href="https://wa.me/40724248842" target="_blank" class="w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110" title="Scrie pe WhatsApp">
+      <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+    <a href="tel:+40724248842" class="w-12 h-12 bg-gold-500 hover:bg-gold-400 text-black rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110" title="Apelează Cabinetul">
+      <i data-lucide="phone" class="w-6 h-6"></i>
+    </a>
+  </div>
+
+  <!-- Modal Lightbox Pentru Imagini -->
+  <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+    <div class="relative max-w-4xl w-full flex items-center justify-center">
+      <img id="lightboxImg" src="" class="max-h-[85vh] max-w-full rounded-2xl border border-gold-500/30 shadow-2xl" />
+      <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white hover:text-gold-400 text-sm flex items-center gap-1">
+        <i data-lucide="x" class="w-5 h-5"></i> Închide
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Admin Auth -->
+  <div id="adminModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-cardbg border border-gold-500/30 p-6 rounded-2xl max-w-sm w-full space-y-4">
+      <h3 class="font-cinzel text-gold-400 font-bold text-center">Acces Admin</h3>
+      <input type="password" id="adminPassInput" placeholder="Introduceți parola..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500" />
+      <div class="flex gap-2">
+        <button onclick="closeAdminModal()" class="w-1/2 py-2 bg-zinc-800 text-zinc-300 rounded-xl text-xs">Anulează</button>
+        <button onclick="checkAdminPassword()" class="w-1/2 py-2 bg-gold-500 text-black font-semibold rounded-xl text-xs">Autentificare</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lucide Icons Init & Scripts -->
+  <script>
+    lucide.createIcons();
+
+    function navigate(sectionId, btn = null) {
+      document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+      const target = document.getElementById(sectionId);
+      target.classList.remove('hidden');
+
+      if (btn) {
+        document.querySelectorAll('.nav-btn').forEach(b => {
+          b.classList.remove('sidebar-btn-active', 'text-gold-400');
+          b.classList.add('text-zinc-400');
+        });
+        btn.classList.add('sidebar-btn-active', 'text-gold-400');
+      }
+      window.scrollTo(0, 0);
+    }
+
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxModal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    function checkAdminPassword() {
+      const pass = document.getElementById('adminPassInput').value;
+      if (pass === 'dralexc') {
+        closeAdminModal();
+        navigate('admin_panel');
+      } else {
+        alert('Parolă incorectă!');
+      }
+    }
+
+    function showAdminTab(tabId) {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+    }
+
+    function calculeazaTotal() {
+      let total = 0;
+      document.querySelectorAll('.calc-check:checked').forEach(c => total += parseFloat(c.value));
+      document.getElementById('total_suma').innerText = total + ' RON';
+    }
+
+    function trimiteWhatsApp() {
+      const n = document.getElementById('c_nume').value;
+      const o = document.getElementById('c_ora').value;
+      if (!n || !o) return alert('Te rugăm să completezi datele!');
+      window.open(`https://wa.me/40724248842?text=Bună ziua! Sunt ${n}, doresc o programare pentru intervalul: ${o}`);
+    }
+
+    function salveazaProgramare() {
+      const n = document.getElementById('adm_p_nume').value;
+      const o = document.getElementById('adm_p_ora').value;
+      if (!n || !o) return;
+      let p = JSON.parse(localStorage.getItem('prog') || '[]');
+      p.push({ nume: n, ora: o });
+      localStorage.setItem('prog', JSON.stringify(p));
+      afiseazaDate();
+    }
+
+    function afiseazaDate() {
+      let prog = JSON.parse(localStorage.getItem('prog') || '[]');
+      let html = '';
+      prog.forEach((x, i) => {
+        html += `<tr class="border-b border-zinc-800/50"><td class="py-2 text-gold-400 font-semibold">${x.ora}</td><td>${x.nume}</td><td class="text-right"><button onclick="stergeProg(${i})" class="text-rose-400 text-xs hover:underline">Șterge</button></td></tr>`;
+      });
+      document.getElementById('tabel-programari').innerHTML = html || '<tr><td colspan="3" class="text-xs text-zinc-500 py-3">Fără programări</td></tr>';
+    }
+
+    function stergeProg(i) {
+      let p = JSON.parse(localStorage.getItem('prog'));
+      p.splice(i, 1);
+      localStorage.setItem('prog', JSON.stringify(p));
+      afiseazaDate();
+    }
+
+    function adaugaReview() {
+      const n = document.getElementById('rev_nume').value;
+      const t = document.getElementById('rev_text').value;
+      const r = document.getElementById('rev_rating').value;
+      if (!n || !t) return alert('Completează toate câmpurile!');
+      let revs = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+      revs.unshift({ nume: n, text: t, rating: r, data: new Date().toLocaleDateString('ro-RO') });
+      localStorage.setItem('site_reviews', JSON.stringify(revs));
+      afiseazaReviews();
+    }
+
+    function afiseazaReviews() {
+      let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+      let html = '';
+      reviews.forEach(r => {
+        html += `<div class="bg-cardbg p-4 rounded-xl border border-zinc-800 space-y-1"><div class="flex justify-between text-xs text-zinc-400"><strong>${r.nume}</strong><span>${r.data}</span></div><div class="text-xs text-gold-400">${r.rating}</div><p class="text-sm text-zinc-300">"${r.text}"</p></div>`;
+      });
+      document.getElementById('lista_reviews').innerHTML = html || '<p class="text-xs text-zinc-500">Nicio recenzie încă.</p>';
+    }
+
+    window.onload = function() {
+      afiseazaDate();
+      afiseazaReviews();
+    };
+  </script>
+</body>
+</html>
